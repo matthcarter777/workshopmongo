@@ -3,6 +3,7 @@ package com.mateus.silva.workshopmongo.resources;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.mateus.silva.workshopmongo.domain.Post;
 import com.mateus.silva.workshopmongo.domain.User;
 import com.mateus.silva.workshopmongo.dto.UserDTO;
 import com.mateus.silva.workshopmongo.services.UserService;
@@ -72,6 +73,13 @@ public class UserResource {
     user = service.update(user);
 
     return ResponseEntity.noContent().build();
+  }
+
+  @GetMapping("/{id}/posts")
+  public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+    User user = service.findById(id);
+
+    return ResponseEntity.ok().body(user.getPosts());
   }
 
 }
